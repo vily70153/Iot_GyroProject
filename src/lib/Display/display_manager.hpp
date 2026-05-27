@@ -16,6 +16,7 @@ public:
     void clear();
     void render();
 
+    Adafruit_SSD1306& get_oled();
     void draw_circle(int16_t x, int16_t y, int16_t radius, bool is_fill);
     void draw_line(int16_t x0, int16_t y0, int16_t x1, int16_t y1);
     void draw_text(int16_t x, int16_t y, const char* text, bool inverted = false);

@@ -60,3 +60,7 @@ void DisplayManager::drawHeart(int x, int y) {
   
   oled.drawPixel(x+3, y+5, WHITE);
 }
+
+Adafruit_SSD1306& DisplayManager::get_oled() {
+  return oled;
+}
