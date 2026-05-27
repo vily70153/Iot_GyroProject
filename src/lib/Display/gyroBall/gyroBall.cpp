@@ -10,26 +10,22 @@
 
 #include <vector>
 
-const int CENTER_X = 64;
-const int CENTER_Y = 32;
-const float SENSITIVITY = 0.6;
-const float SMOOTHING = 0.15;
-float smoothRoll = 0.0;
-float smoothPitch = 0.0;
+static float smoothRoll = 0.0;
+static float smoothPitch = 0.0;
 
 void draw_line_mask(DisplayManager& display, MPU9250_asukiaaa& gyroSensor) {
     std::vector<int> degX = { 15, 45, 80 };
     std::vector<int> degY = { 15, 60 };
     
     for ( auto& el : degX ) {
-      int lineXd = CENTER_X - (el * SENSITIVITY);
-      int lineX =  CENTER_X + (el * SENSITIVITY);
+      int lineXd = Config::CENTER_X - (el * Config::SENSITIVITY);
+      int lineX =  Config::CENTER_X + (el * Config::SENSITIVITY);
       display.draw_line(lineX, 0, lineX, Config::SCREEN_HEIGHT);
       display.draw_line(lineXd, 0, lineXd, Config::SCREEN_HEIGHT);
     }
     for ( auto& el : degY ) {
-      int lineYd = CENTER_Y - (el * SENSITIVITY);
-      int lineY =  CENTER_Y + (el * SENSITIVITY);
+      int lineYd = Config::CENTER_Y - (el * Config::SENSITIVITY);
+      int lineY =  Config::CENTER_Y + (el * Config::SENSITIVITY);
       display.draw_line(0, lineY, Config::SCREEN_WIDTH, lineY);
       display.draw_line(0, lineYd, Config::SCREEN_WIDTH, lineYd);
     }
@@ -44,10 +40,10 @@ void gyro_ball(DisplayManager& display, MPU9250_asukiaaa& gyroSensor) {
         
         float rawRoll = atan2(aY, -aZ) * 180.0 / PI;
         float rawPitch = atan2(-aX, sqrt(aY * aY + -aZ * -aZ)) * 180.0 / PI;
-        smoothRoll = (SMOOTHING * rawRoll) + ((1.0 - SMOOTHING) * smoothRoll);
-        smoothPitch = (SMOOTHING * rawPitch) + ((1.0 - SMOOTHING) * smoothPitch);
-        int ballX = CENTER_X + (smoothRoll * SENSITIVITY);
-        int ballY = CENTER_Y + (-smoothPitch * SENSITIVITY);
+        smoothRoll = (Config::SMOOTHING * rawRoll) + ((1.0 - Config::SMOOTHING) * smoothRoll);
+        smoothPitch = (Config::SMOOTHING * rawPitch) + ((1.0 - Config::SMOOTHING) * smoothPitch);
+        int ballX = Config::CENTER_X + (smoothRoll * Config::SENSITIVITY);
+        int ballY = Config::CENTER_Y + (-smoothPitch * Config::SENSITIVITY);
     
         ballX = constrain(ballX, 3, 125); 
         ballY = constrain(ballY, 3, 61);
@@ -57,7 +53,7 @@ void gyro_ball(DisplayManager& display, MPU9250_asukiaaa& gyroSensor) {
     
         display.clear();
         draw_line_mask(display, gyroSensor);
-        if (abs(CENTER_X-ballX) <= 3  && abs(CENTER_Y-ballY) <= 3) display.draw_circle(ballX, ballY, 5, true);
+        if (abs(Config::CENTER_X-ballX) <= 3  && abs(Config::CENTER_Y-ballY) <= 3) display.draw_circle(ballX, ballY, 5, true);
         else display.draw_circle(ballX, ballY, 5, false);
         display.render();
       }

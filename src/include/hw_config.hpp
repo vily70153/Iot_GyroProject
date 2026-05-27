@@ -18,6 +18,11 @@ namespace Config {
     constexpr int8_t  OLED_RESET    = -1;
 
     constexpr uint32_t SERIAL_BAUD_RATE = 115200;
+
+    constexpr int CENTER_X = 64;
+    constexpr int CENTER_Y = 32;
+    constexpr float SENSITIVITY = 0.6;
+    constexpr float SMOOTHING = 0.15;
 }
 
 #endif

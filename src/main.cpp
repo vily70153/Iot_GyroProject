@@ -10,6 +10,7 @@
 #include "lib/MPU9265/gyro_manager.hpp"
 #include "lib/Display/display_manager.hpp"
 #include "lib/Display/gyroBall/gyroBall.hpp"
+#include "lib/Display/gyroStat/gyro_stat.hpp"
 #include "include/hw_config.hpp"
 
 #include <vector>
@@ -34,7 +35,7 @@ void setup() {
 
 void loop() {
   // gyro_ball(display, gyroSensor);
-
+  gyro_stat(display, gyroSensor);
 
   // ButtonPosition btnState = keypad.getCurrentBtnState();
   // const char* curPosString = keypad.positionToString(btnState);
