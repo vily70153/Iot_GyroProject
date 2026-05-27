@@ -47,3 +47,16 @@ void DisplayManager::draw_circle(int16_t x, int16_t y, int16_t radius, bool is_f
   if (is_fill) oled.fillCircle(x, y, radius, WHITE);
   else oled.drawCircle(x, y, radius, WHITE);
 }
+
+void DisplayManager::drawHeart(int x, int y) {
+  // Рисуем маленькое заполненное сердечко 7x7 пикселей
+  oled.drawPixel(x+1, y, WHITE); oled.drawPixel(x+2, y, WHITE);
+  oled.drawPixel(x+4, y, WHITE); oled.drawPixel(x+5, y, WHITE);
+  
+  oled.drawFastHLine(x, y+1, 7, WHITE);
+  oled.drawFastHLine(x, y+2, 7, WHITE);
+  oled.drawFastHLine(x+1, y+3, 5, WHITE);
+  oled.drawFastHLine(x+2, y+4, 3, WHITE);
+  
+  oled.drawPixel(x+3, y+5, WHITE);
+}
